@@ -14,10 +14,6 @@ class ExerciseListScreen extends StatefulWidget {
 }
 
 class _ExerciseListScreenState extends State<ExerciseListScreen> {
-
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +52,9 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                         child: ListTile(
                           contentPadding: EdgeInsets.all(16),
                           title: Text(
-                            WidgetUtil()
-                                .toTitleCase(exercise.name.toString()),
+                            WidgetUtil().toTitleCase(exercise.name.toString()),
                             style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Row(
                             children: [
@@ -71,11 +65,10 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                               ),
                               SizedBox(width: 8),
                               Text(
-                                WidgetUtil().toTitleCase(
-                                    exercise.target.toString()),
+                                WidgetUtil()
+                                    .toTitleCase(exercise.target.toString()),
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey[600]),
+                                    fontSize: 16, color: Colors.grey[600]),
                               ),
                             ],
                           ),
@@ -99,20 +92,15 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                WidgetUtil().toTitleCase(
-                                    exercise.bodyPart.toString()),
+                                WidgetUtil()
+                                    .toTitleCase(exercise.bodyPart.toString()),
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey[600]),
+                                    fontSize: 16, color: Colors.grey[600]),
                               ),
                             ],
                           ),
                         ),
-                      )
-
-                    
-
-                      );
+                      ));
                 });
       },
     );

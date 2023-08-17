@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:fitbasix_exercise/core/api/api.dart';
 import 'package:fitbasix_exercise/model/exercise_details_model/exercise_details_model.dart';
 import 'package:fitbasix_exercise/model/exercises_model/exercises_model.dart';
-import 'package:get/get.dart';
 
 import '../api/api_utils.dart';
 

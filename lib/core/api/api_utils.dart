@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 
 import 'custom_log_interceptor.dart';
 
-// final title = "ApiUtils";
 
 ApiUtils apiUtils = ApiUtils();
 

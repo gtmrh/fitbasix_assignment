@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 
 
 class WidgetUtil {
@@ -90,8 +88,4 @@ String toTitleCase(String input) {
     );
   }
 
-  // static Widget noDataLottie() {
-  //   return Lottie.asset('assets/images/no_data.json',
-  //       repeat: true, reverse: true, animate: true, height: 100);
-  // }
 }

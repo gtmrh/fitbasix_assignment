@@ -2,11 +2,7 @@ import 'package:dio/dio.dart';
 
 final title = "CustomLogInterceptor";
 
-/// [CustomLogInterceptor] is used to print logs during network requests.
-/// It's better to add [CustomLogInterceptor] to the tail of the interceptor queue,
-/// otherwise the changes made in the interceptor behind A will not be printed out.
-/// This is because the execution of interceptors is in the order of addition.
-///
+
 class CustomLogInterceptor extends Interceptor {
   CustomLogInterceptor({
     this.request = true,

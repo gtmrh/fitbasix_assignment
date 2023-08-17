@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:fitbasix_exercise/model/exercise_details_model/exercise_details_model.dart';
 import 'package:fitbasix_exercise/model/exercises_model/exercises_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,8 +9,6 @@ import '../repo/api_repository.dart';
 const title = "AppController";
 
 class AppController extends GetxController {
-  // late Position position;
-
   var isLoading = false.obs;
 
   final _exerciseList = <ExercisesModel>[].obs;
@@ -61,10 +57,9 @@ class AppController extends GetxController {
 
       update();
 
-      print(">>mycourse>>>${exerciseDetails.value}");
+      print(">>getExerciseDetails>>>${exerciseDetails.value}");
     } catch (e) {
       Log.logs(title, "getExerciseDetails:: e >>>>> $e");
-      // showSnackbar("Api Error", "error:: $e");
     }
   }
 }
