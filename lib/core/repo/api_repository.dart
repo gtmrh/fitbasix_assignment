@@ -19,7 +19,7 @@ class ApiRepo {
     try {
       var headers = {Api.key: Api.apiKey};
       final response =
-          await apiUtils.get(url: url, options: Options(headers: headers));
+          await apiUtils.get(url: url, options: Options(headers: headers, sendTimeout: 60*1000));
 
       print(">>response$response");
 
