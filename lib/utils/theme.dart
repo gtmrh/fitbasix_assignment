@@ -31,7 +31,6 @@ class AppTheme {
       ),
       colorScheme: ColorScheme.light(
         primary: _lightPrimaryColor,
-        primaryVariant: _lightPrimaryVariantColor,
         secondary: _lightSecondaryColor,
         onPrimary: _lightOnPrimaryColor,
       ),

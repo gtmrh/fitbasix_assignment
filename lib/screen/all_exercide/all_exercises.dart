@@ -1,7 +1,7 @@
-import 'package:fitbasix_exercise/core/controller/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:pagination_view/pagination_view.dart';
 
 import '../../utils/my_application.dart';
 import '../../utils/strings.dart';
@@ -14,6 +14,11 @@ class ExerciseListScreen extends StatefulWidget {
 }
 
 class _ExerciseListScreenState extends State<ExerciseListScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +37,25 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
   Widget views() {
     return Obx(
       () {
-        return app.appController.exerciseList.isEmpty
-            ? Center(child: WidgetUtil.loaderSpin())
-            : ListView.builder(
-                itemCount: app.appController.exerciseList.length,
-                itemBuilder: (context, index) {
-                  final exercise = app.appController.exerciseList[index];
-                  return InkWell(
+        final exerciseList = app.appController.exerciseList;
+
+        if (exerciseList.isEmpty) {
+          return Center(child: WidgetUtil.loaderSpin());
+        }
+
+        return Column(
+          children: [
+            Expanded(
+              child: PaginationView(
+                preloadedItems: exerciseList,
+                itemBuilder:
+                    (BuildContext context, dynamic exercise, int index) {
+                  if (index == exerciseList.length) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return InkWell(
                       onTap: () async {
                         await app.appController
                             .getExerciseDetails(exercise.id.toString());
@@ -50,20 +67,20 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ListTile(
-                          contentPadding: EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.all(16),
                           title: Text(
                             WidgetUtil().toTitleCase(exercise.name.toString()),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 FontAwesomeIcons.heartPulse,
                                 size: 20,
                                 color: Colors.red,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 WidgetUtil()
                                     .toTitleCase(exercise.target.toString()),
@@ -85,12 +102,12 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 FontAwesomeIcons.dumbbell,
                                 size: 20,
                                 color: Colors.green,
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 WidgetUtil()
                                     .toTitleCase(exercise.bodyPart.toString()),
@@ -100,9 +117,47 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
                             ],
                           ),
                         ),
-                      ));
-                });
+                      ),
+                    );
+                  }
+                },
+                paginationViewType: PaginationViewType.listView,
+                pageFetch: pageFetch,
+                onError: onError,
+                onEmpty: onEmpty(),
+              ),
+            ),
+          ],
+        );
       },
+    );
+  }
+
+  bool isLoading = false; // Track loading state
+
+  Future<List<dynamic>> pageFetch(int offset) async {
+    await Future.delayed(const Duration(seconds: 2));
+    // Calculating the start and end index of the page
+    final itemsPerPage = 10; // Adjusting the number of items per page as needed
+    final startIndex = offset * itemsPerPage;
+    final endIndex = startIndex + itemsPerPage;
+
+    if (endIndex >= app.appController.exerciseList.length) {
+      return [];
+    } else {
+      return app.appController.exerciseList.sublist(startIndex, endIndex);
+    }
+  }
+
+  Widget onError(dynamic error) {
+    return Center(
+      child: Text('Error: $error'),
+    );
+  }
+
+  Widget onEmpty() {
+    return const Center(
+      child: Text('No items available.'),
     );
   }
 }
